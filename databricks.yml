@@ -1,1 +1,21 @@
+bundle:
+  name: kafka-databricks-project
 
+targets:
+  dev:
+    default: true
+    
+resources:
+  pipelines:
+    kafka_pipeline:
+      name: kafka_pipeline
+      target: main # Nome do catálogo no Unity Catalog
+      libraries:
+        - notebook:
+            path: ./notebooks/ingest_kafka.py
+        - notebook:
+            path: ./pipelines/bronze.sql
+        - notebook:
+            path: ./pipelines/silver.sql
+      configuration:
+        pipelines.useLatestPatterns: "true"
