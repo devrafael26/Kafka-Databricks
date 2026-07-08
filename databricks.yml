@@ -1,9 +1,16 @@
 bundle:
-  name: kafka-databricks-project
+  name: kafka-databricks
 
 include:
   - resources/*.yml
 
+workspace:
+  profile: DEFAULT
+
 targets:
   dev:
     default: true
+
+
+
+
