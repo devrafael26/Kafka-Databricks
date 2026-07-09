@@ -15,6 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install Python dependencies
+        run: |
+          pip install pytest jsonschema
+
+      - name: Run data contract tests
+        run: |
+          pytest tests/
+
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
