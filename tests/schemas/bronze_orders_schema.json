@@ -1,0 +1,39 @@
+{
+  "type": "object",
+  "properties": {
+    "orderid": {
+      "type": "integer"
+    },
+    "orderdate": {
+      "type": "string"
+    },
+    "itemid": {
+      "type": "string"
+    },
+    "orderunits": {
+      "type": "number"
+    },
+    "city": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipcode": {
+      "type": "integer"
+    },
+    "bronze_processing_timestamp": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "orderid",
+    "orderdate",
+    "itemid",
+    "orderunits",
+    "city",
+    "state",
+    "zipcode",
+    "bronze_processing_timestamp"
+  ]
+}
