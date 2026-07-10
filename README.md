@@ -4,3 +4,4 @@
 Testing Databricks Asset Bundle validation with GitHub Actions.
 
 
+# Kafka contract tests
