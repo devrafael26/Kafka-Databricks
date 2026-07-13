@@ -162,24 +162,25 @@ Validações:
 
 Camada responsável pela disponibilização de dados analíticos e indicadores para consumo.
 
-A partir dos dados confiáveis da Silver, foram criadas tabelas agregadas contendo métricas de negócio e observabilidade do pipeline.
+A partir dos dados confiáveis da Silver, foram criadas tabelas agregadas contendo métricas de negócio, análises dimensionais e informações de observabilidade do pipeline.
 
 Implementações:
-
 Métricas analíticas
 
 Criação de agregações para análise dos pedidos:
 
 Exemplo:
 COUNT(orderid) AS total_orders,
-SUM(orderunits) AS total_units
+SUM(orderunits) AS total_units,
+AVG(orderunits) AS avg_units_per_order
 
 Indicadores gerados:
 
 Quantidade total de pedidos;
-Volume de itens processados;
-Distribuição de pedidos por localização;
-Rankings por cidade e estado.
+Volume total de itens processados;
+Média de unidades por pedido;
+Valores mínimo e máximo de unidades;
+Distribuição dos pedidos por localização.
 
 Tabelas analíticas criadas:
 
@@ -188,18 +189,26 @@ Tabelas analíticas criadas:
 Responsável por consolidar métricas gerais dos pedidos.
 
 Exemplo:
+time_window
 total_orders
 total_units
 avg_units_per_order
+min_units
+max_units
 
 ▦ gold_city_ranking
 
 Tabela destinada à análise de performance por cidade.
 
 Exemplo:
+state
 city
+order_day
 total_orders
 total_units
+avg_units
+
+Permite análises comparativas entre cidades através das métricas agregadas.
 
 ▦ gold_state_ranking
 
@@ -209,6 +218,46 @@ Exemplo:
 state
 total_orders
 total_units
+avg_units
+
+
+Data Quality
+
+Foram adicionadas validações automatizadas para garantir a consistência dos dados analíticos da camada Gold.
+
+Os testes são executados no pipeline de CI utilizando Pytest.
+
+Validações realizadas:
+
+Volume de dados
+
+Garantia de que as tabelas analíticas possuem registros após o processamento.
+
+Exemplo:
+assert len(data) > 0
+
+Consistência das métricas
+
+Validação das regras de negócio:
+
+Valores de pedidos e unidades não podem ser negativos;
+Média de unidades deve ser consistente com total de unidades e quantidade de pedidos;
+Valores mínimos não podem ser superiores aos valores máximos.
+
+Exemplo:
+assert min_units <= max_units
+
+Qualidade das agregações
+
+Validação das tabelas analíticas:
+
+Campos obrigatórios (state, city) devem estar preenchidos;
+Métricas agregadas devem possuir valores válidos;
+Integridade das agregações por cidade e estado.
+
+Resultado:
+A camada Gold disponibiliza dados preparados para consumo analítico, garantindo confiabilidade através de métricas de negócio e testes automatizados de qualidade.
+
 
 Observabilidade do Pipeline
 
