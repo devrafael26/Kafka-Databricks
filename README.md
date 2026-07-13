@@ -373,19 +373,34 @@ Responsável por publicar a aplicação no ambiente Databricks.
 .
 ├── .github
 │   └── workflows
-│       ├── database-ci.yaml
-│       └── database-cd.yaml
+│       ├── databricks-ci.yml
+│       └── databricks-cd.yml
 │
 ├── resources
+│   └── kafka_pipeline.pipeline.yml
 │
 ├── src
+│   ├── notebooks
+│   │   └── ingest_kafka.py
+│   │
+│   └── pipelines
+│       ├── bronze_orders.sql
+│       ├── silver_orders.sql
+│       ├── gold_orders_metrics.sql
+│       ├── gold_city_ranking.sql
+│       ├── gold_state_ranking.sql
+│       └──gold_pipeline_observability.sql
 │
 ├── tests
 │   ├── schemas
+│   │   ├── bronze_schema.json
+│   │   └── order_event_schema.json
+│   │
 │   ├── test_order_event_contract.py
 │   ├── test_bronze_schema.py
 │   ├── test_silver_schema.py
-│   └── test_data_quality.py
+│   ├── test_data_quality.py
+│   └── test_gold_quality.py
 │
 ├── databricks.yml
 └── README.md
