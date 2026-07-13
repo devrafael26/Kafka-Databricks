@@ -183,7 +183,7 @@ Rankings por cidade e estado.
 
 Tabelas analíticas criadas:
 
-gold_orders_metrics
+▦ gold_orders_metrics
 
 Responsável por consolidar métricas gerais dos pedidos.
 
@@ -192,7 +192,7 @@ total_orders
 total_units
 avg_units_per_order
 
-gold_city_ranking
+▦ gold_city_ranking
 
 Tabela destinada à análise de performance por cidade.
 
@@ -201,7 +201,7 @@ city
 total_orders
 total_units
 
-## gold_state_ranking
+▦ gold_state_ranking
 
 Tabela destinada à análise consolidada por estado.
 
@@ -214,7 +214,7 @@ Observabilidade do Pipeline
 
 Foi criada uma tabela para acompanhamento operacional do processamento:
 
-gold_pipeline_observability
+▦ gold_pipeline_observability
 
 Monitoramento de informações técnicas:
 
