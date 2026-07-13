@@ -158,6 +158,76 @@ Validações:
 * Campos obrigatórios;
 * Integridade dos registros.
 
+🥇 Gold Layer
+
+Camada responsável pela disponibilização de dados analíticos e indicadores para consumo.
+
+A partir dos dados confiáveis da Silver, foram criadas tabelas agregadas contendo métricas de negócio e observabilidade do pipeline.
+
+Implementações:
+
+Métricas analíticas
+
+Criação de agregações para análise dos pedidos:
+
+Exemplo:
+COUNT(orderid) AS total_orders,
+SUM(orderunits) AS total_units
+
+Indicadores gerados:
+
+Quantidade total de pedidos;
+Volume de itens processados;
+Distribuição de pedidos por localização;
+Rankings por cidade e estado.
+
+Tabelas analíticas criadas:
+
+gold_orders_metrics
+
+Responsável por consolidar métricas gerais dos pedidos.
+
+Exemplo:
+total_orders
+total_units
+avg_units_per_order
+
+gold_city_ranking
+
+Tabela destinada à análise de performance por cidade.
+
+Exemplo:
+city
+total_orders
+total_units
+
+gold_state_ranking
+
+Tabela destinada à análise consolidada por estado.
+
+Exemplo:
+gold_state_ranking
+
+Tabela destinada à análise consolidada por estado.
+
+Exemplo:
+state
+total_orders
+total_units
+
+Observabilidade do Pipeline
+
+Foi criada uma tabela para acompanhamento operacional do processamento:
+
+gold_pipeline_observability
+
+Monitoramento de informações técnicas:
+
+Timestamp de processamento Bronze;
+Timestamp de processamento Silver;
+Latência entre etapas;
+Acompanhamento da execução do pipeline.
+
 ⸻
 
 🧪 Testes Automatizados
