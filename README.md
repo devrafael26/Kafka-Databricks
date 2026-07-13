@@ -137,6 +137,7 @@ CDC
 
 Utilização de:
 APPLY CHANGES INTO
+
 com:
 KEYS(orderid)
 
@@ -220,6 +221,7 @@ Continuous Integration (CI)
 Executado em Pull Requests para a branch main.
 
 Fluxo:
+
 Pull Request
       |
       v
@@ -242,6 +244,7 @@ Continuous Deployment (CD)
 Executado após alterações na branch main.
 
 Fluxo:
+
 Merge Pull Request
         |
         v
