@@ -22,7 +22,7 @@ SELECT
         unix_timestamp(bronze_processing_timestamp)
     ) AS min_bronze_silver_latency_sec
 
-    current_timestamp() AS gold_refresh_timestamp
+    
 
 FROM workspace.silver.orders_silver
 
