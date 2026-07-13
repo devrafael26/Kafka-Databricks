@@ -201,12 +201,7 @@ city
 total_orders
 total_units
 
-gold_state_ranking
-
-Tabela destinada à análise consolidada por estado.
-
-Exemplo:
-gold_state_ranking
+## gold_state_ranking
 
 Tabela destinada à análise consolidada por estado.
 
