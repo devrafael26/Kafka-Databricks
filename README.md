@@ -192,7 +192,7 @@ total_orders
 total_units
 avg_units_per_order
 
-▦ gold_city_ranking
+▦ gold_city_ranking 表格
 
 Tabela destinada à análise de performance por cidade.
 
