@@ -142,3 +142,145 @@ KEYS(orderid)
 
 Implementando comportamento:
 SCD Type 1
+
+Data Quality
+
+Foram adicionadas regras de qualidade utilizando expectations:
+
+Exemplo:
+CONSTRAINT orderunits_valido
+EXPECT(orderunits >= 0)
+ON VIOLATION DROP ROW
+
+Validações:
+
+* Quantidades negativas;
+* Campos obrigatórios;
+* Integridade dos registros.
+
+⸻
+
+🧪 Testes Automatizados
+
+A pipeline possui testes executados automaticamente pelo CI.
+
+Estrutura:
+tests/
+
+├── test_order_event_contract.py
+├── test_bronze_schema.py
+├── test_silver_schema.py
+└── test_data_quality.py
+
+Contrato Kafka
+
+Valida se o evento recebido segue o schema esperado.
+
+Exemplo:
+Kafka Event
+     |
+     v
+JSON Schema Validation
+
+Schema Validation
+
+Validação das estruturas:
+
+* Bronze;
+* Silver.
+
+Garantindo:
+
+* existência das colunas;
+* tipos esperados;
+* campos obrigatórios.
+
+⸻
+
+Data Quality Tests
+
+Validações implementadas:
+
+* valores inválidos;
+* campos nulos;
+* duplicidade de chave.
+
+Execução:
+pytest tests/
+
+Resultado esperado:
+6 passed
+
+🔁 CI/CD
+
+O projeto utiliza GitHub Actions para automação.
+
+Continuous Integration (CI)
+
+Executado em Pull Requests para a branch main.
+
+Fluxo:
+Pull Request
+      |
+      v
+GitHub Actions
+      |
+      +-- Install dependencies
+      |
+      +-- Run Pytest
+      |
+      +-- Validate Databricks Bundle
+
+Objetivo:
+
+Impedir que alterações com problemas cheguem à branch principal.
+
+⸻
+
+Continuous Deployment (CD)
+
+Executado após alterações na branch main.
+
+Fluxo:
+Merge Pull Request
+        |
+        v
+Push main
+        |
+        v
+Databricks Bundle Deploy
+
+Responsável por publicar a aplicação no ambiente Databricks.
+
+📂 Estrutura do Projeto
+
+.
+├── .github
+│   └── workflows
+│       ├── database-ci.yaml
+│       └── database-cd.yaml
+│
+├── resources
+│
+├── src
+│
+├── tests
+│   ├── schemas
+│   ├── test_order_event_contract.py
+│   ├── test_bronze_schema.py
+│   ├── test_silver_schema.py
+│   └── test_data_quality.py
+│
+├── databricks.yml
+└── README.md
+
+🚀 Próximos Passos
+
+* Implementação da camada Gold;
+* Criação de métricas analíticas;
+* Monitoramento da qualidade;
+* Deploy em múltiplos ambientes;
+* Integração com ferramentas de observabilidade.
+
+
+
