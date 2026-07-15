@@ -1,8 +1,8 @@
-StreamLake Platform
+# StreamLake Platform
 
-> Plataforma de Dados Streaming utilizando *Apache Kafka*,
-> *Databricks*, *Spark Structured Streaming*, *Delta Lake* e
-> *Lakeflow Declarative Pipelines*.
+ Plataforma de Dados Streaming utilizando **Apache Kafka**,
+ **Databricks**, **Spark Structured Streaming**, **Delta Lake** e
+ **Lakeflow Declarative Pipelines**.
 
 Projeto de Engenharia de Dados end-to-end para processamento de eventos
 em tempo real, implementando uma arquitetura Lakehouse com foco em
