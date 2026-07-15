@@ -8,6 +8,12 @@ e automação CI/CD.
 
 ---
 
+## 🎯 Objetivo
+
+Este projeto foi desenvolvido com o objetivo de consolidar, na prática, conceitos modernos de Engenharia de Dados relacionados a processamento de dados streaming, arquitetura Lakehouse, qualidade de dados, automação CI/CD, governança e observabilidade de pipelines utilizando o ecossistema Databricks.
+
+---
+
 ## 📌 Visão Geral
 
 O StreamLake Platform simula uma plataforma de processamento de pedidos em tempo real.
@@ -23,30 +29,51 @@ com foco em streaming, governança, qualidade e automação.
 
 ---
 
+## ✨ Principais Funcionalidades
+
+- ✔ Ingestão de eventos em streaming utilizando Apache Kafka
+- ✔ Processamento distribuído com Spark Structured Streaming
+- ✔ Arquitetura Lakehouse (Raw, Bronze, Silver e Gold)
+- ✔ Lakeflow Declarative Pipelines (Delta Live Tables)
+- ✔ Schema Enforcement
+- ✔ Contratos de Dados com JSON Schema
+- ✔ CDC utilizando APPLY CHANGES INTO (SCD Type 1)
+- ✔ Data Quality com Expectations
+- ✔ Testes automatizados utilizando Pytest
+- ✔ CI/CD utilizando GitHub Actions
+- ✔ Deploy automatizado utilizando Databricks Asset Bundles
+- ✔ Orquestração utilizando Databricks Workflows
+- ✔ Dashboards analíticos e de observabilidade
+- ✔ Pipeline Observability
+
+---
+
 # 🏗️ Arquitetura
 
 ```text
                     Apache Kafka
-                         |
-                         |
-                         v
-                  Raw Delta Table
-                  (Kafka events)
-                         |
-                         |
-                         v
-                    Bronze Layer
-             Parsing + Schema Enforcement
-                         |
-                         |
-                         v
-                    Silver Layer
-          Data Quality + CDC + SCD Type 1
-                         |
-                         |
-                         v
-                    Gold Layer
-              Business Analytics (future)
+                               |
+                               |
+                               v
+                 Spark Structured Streaming
+                    (Ingestion Notebook)
+                               |
+                               |
+                               v
+                     Raw Delta Table
+                      (Kafka Events)
+                               |
+                               |
+                               v
+             Lakeflow Declarative Pipeline
+                               |
+               +---------------+---------------+
+               |               |               |
+               v               v               v
+            Bronze          Silver           Gold
+       Schema Parsing   CDC + Quality   Analytics &
+                                       Observability
+                               |
 
 🛠️ Tecnologias Utilizadas
 
@@ -235,44 +262,95 @@ Monitoramento de informações técnicas:
 - Latência mínima entre Bronze e Silver;
 - Evolução da latência ao longo do processamento.
 
-Data Quality
+### Testes Automatizados
 
-Foram adicionadas validações automatizadas para garantir a consistência dos dados analíticos da camada Gold.
+Foram desenvolvidos testes automatizados utilizando **Pytest** para validar a qualidade dos dados e a conformidade das estruturas produzidas ao longo da pipeline.
 
-Os testes são executados no pipeline de CI utilizando Pytest.
+Os testes são executados automaticamente durante o processo de **Continuous Integration (CI)**.
 
-Validações realizadas:
+Validações implementadas:
 
-Volume de dados
+#### Contrato do Evento Kafka
 
-Garantia de que as tabelas analíticas possuem registros após o processamento.
-
-Exemplo:
-assert len(data) > 0
-
-Consistência das métricas
-
-Validação das regras de negócio:
-
-Valores de pedidos e unidades não podem ser negativos;
-Média de unidades deve ser consistente com total de unidades e quantidade de pedidos;
-Valores mínimos não podem ser superiores aos valores máximos.
+Validação do evento recebido utilizando **JSON Schema**, garantindo que o payload publicado no tópico Kafka esteja em conformidade com o contrato esperado.
 
 Exemplo:
-assert min_units <= max_units
 
-Qualidade das agregações
+Kafka Event
+     |
+     v
+JSON Schema Validation
 
-Validação das tabelas analíticas:
+#### Validação de Schema
 
-Campos obrigatórios (state, city) devem estar preenchidos;
-Métricas agregadas devem possuir valores válidos;
-Integridade das agregações por cidade e estado.
+Verificação da estrutura das camadas processadas:
+
+- Bronze;
+- Silver.
+
+As validações garantem:
+
+- existência das colunas esperadas;
+- tipos de dados corretos;
+- conformidade com os schemas definidos.
+
+#### Data Quality
+
+Foram implementadas validações para garantir a consistência dos dados processados:
+
+- `orderunits` não pode possuir valores negativos;
+- `city` deve estar preenchida (NOT NULL);
+- `orderid` deve ser único.
+
+Essas validações asseguram que apenas dados consistentes avancem pelas camadas da plataforma.
 
 Resultado:
-A camada Gold disponibiliza dados preparados para consumo analítico e acompanhamento operacional, garantindo confiabilidade através de métricas de negócio, indicadores de processamento e testes automatizados de qualidade.
+
+A plataforma conta com testes automatizados para validação do contrato dos eventos Kafka, conformidade dos schemas das camadas Bronze e Silver e regras básicas de qualidade dos dados, contribuindo para aumentar a confiabilidade do pipeline durante o processo de integração contínua.
 
 ⸻
+
+## 🔄 Orquestração
+
+A execução da plataforma é realizada utilizando Databricks Workflows.
+
+O Workflow executa duas tarefas sequenciais:
+
+Notebook de Ingestão
+        |
+        v
+Persistência na Raw Delta
+        |
+        v
+Lakeflow Declarative Pipeline
+        |
+        +--> Bronze
+        |
+        +--> Silver
+        |
+        +--> Gold
+
+O agendamento periódico permite que novos eventos publicados no Kafka sejam ingeridos automaticamente e disponibilizados para consumo analítico.
+
+## 📊 Dashboards
+
+Foram desenvolvidos dashboards utilizando Databricks Dashboards (Lakeview), permitindo acompanhar indicadores de negócio e métricas operacionais da plataforma.
+
+### Business Analytics
+
+- Total de pedidos
+- Volume de unidades processadas
+- Ranking por cidade
+- Ranking por estado
+
+### Pipeline Observability
+
+- Eventos processados por janela
+- Latência média Bronze → Silver
+- Latência mínima
+- Latência máxima
+- Evolução temporal da latência
+
 
 🧪 Testes Automatizados
 
@@ -367,6 +445,23 @@ Push main
 Databricks Bundle Deploy
 
 Responsável por publicar a aplicação no ambiente Databricks.
+
+## 🚀 Resultados
+
+A solução demonstra uma implementação completa de uma plataforma moderna de Engenharia de Dados, contemplando desde a ingestão streaming até a disponibilização dos dados para consumo analítico.
+
+Durante o desenvolvimento foram aplicados conceitos de:
+
+- Streaming de dados com Apache Kafka;
+- Processamento distribuído com Apache Spark;
+- Arquitetura Lakehouse utilizando Delta Lake;
+- CDC com APPLY CHANGES INTO (SCD Type 1);
+- Data Quality e Schema Enforcement;
+- Testes automatizados;
+- CI/CD;
+- Orquestração com Databricks Workflows;
+- Observabilidade de pipelines;
+- Dashboards analíticos.
 
 📂 Estrutura do Projeto
 
