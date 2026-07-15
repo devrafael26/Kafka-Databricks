@@ -154,6 +154,8 @@ city
 state
 zipcode
 
+---
+
 🥈 Silver Layer
 
 Camada responsável pela aplicação das regras de negócio.
@@ -184,6 +186,8 @@ Validações:
 * Quantidades negativas;
 * Campos obrigatórios;
 * Integridade dos registros.
+
+---
 
 🥇 Gold Layer
 
@@ -266,28 +270,38 @@ Monitoramento de informações técnicas:
 - Latência mínima entre Bronze e Silver;
 - Evolução da latência ao longo do processamento.
 
-### Testes Automatizados
+---
 
-Foram desenvolvidos testes automatizados utilizando **Pytest** para validar a qualidade dos dados e a conformidade das estruturas produzidas ao longo da pipeline.
+## 🧪 Testes Automatizados
 
-Os testes são executados automaticamente durante o processo de **Continuous Integration (CI)**.
+A pipeline possui testes automatizados desenvolvidos utilizando **Pytest**, executados durante o processo de **Continuous Integration (CI)**.
 
-Validações implementadas:
+### Estrutura
 
-#### Contrato do Evento Kafka
+```text
+tests/
+├── test_order_event_contract.py
+├── test_bronze_schema.py
+├── test_silver_schema.py
+└── test_data_quality.py
+```
+
+### Contrato do Evento Kafka
 
 Validação do evento recebido utilizando **JSON Schema**, garantindo que o payload publicado no tópico Kafka esteja em conformidade com o contrato esperado.
 
-Exemplo:
+Fluxo:
 
+```text
 Kafka Event
      |
      v
 JSON Schema Validation
+```
 
-#### Validação de Schema
+### Validação de Schema
 
-Verificação da estrutura das camadas processadas:
+Verificação da estrutura das camadas:
 
 - Bronze;
 - Silver.
@@ -298,7 +312,7 @@ As validações garantem:
 - tipos de dados corretos;
 - conformidade com os schemas definidos.
 
-#### Data Quality
+### Data Quality
 
 Foram implementadas validações para garantir a consistência dos dados processados:
 
@@ -308,9 +322,19 @@ Foram implementadas validações para garantir a consistência dos dados process
 
 Essas validações asseguram que apenas dados consistentes avancem pelas camadas da plataforma.
 
-Resultado:
+### Execução
 
-A plataforma conta com testes automatizados para validação do contrato dos eventos Kafka, conformidade dos schemas das camadas Bronze e Silver e regras básicas de qualidade dos dados, contribuindo para aumentar a confiabilidade do pipeline durante o processo de integração contínua.
+```bash
+pytest tests/
+```
+
+### Resultado esperado
+
+```text
+6 passed
+```
+
+Esses testes contribuem para aumentar a confiabilidade do pipeline, validando o contrato dos eventos Kafka, a conformidade dos schemas das camadas Bronze e Silver e as principais regras de qualidade dos dados antes do processo de deploy.
 
 ⸻
 
@@ -336,6 +360,8 @@ Lakeflow Declarative Pipeline
 
 O agendamento periódico permite que novos eventos publicados no Kafka sejam ingeridos automaticamente e disponibilizados para consumo analítico.
 
+---
+
 ## 📊 Dashboards
 
 Foram desenvolvidos dashboards utilizando Databricks Dashboards (Lakeview), permitindo acompanhar indicadores de negócio e métricas operacionais da plataforma.
@@ -355,57 +381,7 @@ Foram desenvolvidos dashboards utilizando Databricks Dashboards (Lakeview), perm
 - Latência máxima
 - Evolução temporal da latência
 
-
-🧪 Testes Automatizados
-
-A pipeline possui testes executados automaticamente pelo CI.
-
-Estrutura:
-tests/
-
-├── test_order_event_contract.py
-├── test_bronze_schema.py
-├── test_silver_schema.py
-└── test_data_quality.py
-
-Contrato Kafka
-
-Valida se o evento recebido segue o schema esperado.
-
-Exemplo:
-Kafka Event
-     |
-     v
-JSON Schema Validation
-
-Schema Validation
-
-Validação das estruturas:
-
-* Bronze;
-* Silver.
-
-Garantindo:
-
-* existência das colunas;
-* tipos esperados;
-* campos obrigatórios.
-
-⸻
-
-Data Quality Tests
-
-Validações implementadas:
-
-* valores inválidos;
-* campos nulos;
-* duplicidade de chave.
-
-Execução:
-pytest tests/
-
-Resultado esperado:
-6 passed
+---
 
 🔁 CI/CD
 
