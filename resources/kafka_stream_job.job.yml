@@ -1,0 +1,20 @@
+resources:
+  jobs:
+    kafka_stream_job:
+      name: kafka_stream_job
+
+      schedule:
+        quartz_cron_expression: "0 */15 * * * ?"
+        timezone_id: "America/Sao_Paulo"
+
+      tasks:
+
+        - task_key: ingest_raw
+          notebook_task:
+            notebook_path: ../src/notebooks/ingest_kafka.py
+
+        - task_key: run_pipeline
+          pipeline_task:
+            pipeline_id: 4daf3555-95ff-4501-b816-7d8ba13d5a79
+          depends_on:
+            - task_key: ingest_raw
