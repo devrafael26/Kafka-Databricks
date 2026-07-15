@@ -125,7 +125,7 @@ Eventos são recebidos no formato JSON:
 
 A camada Raw mantém o evento original recebido do tópico Kafka.
 
-⸻
+______
 
 🥉 Bronze Layer
 
@@ -154,7 +154,7 @@ city
 state
 zipcode
 
----
+______
 
 🥈 Silver Layer
 
@@ -187,7 +187,7 @@ Validações:
 * Campos obrigatórios;
 * Integridade dos registros.
 
----
+______
 
 🥇 Gold Layer
 
@@ -270,7 +270,7 @@ Monitoramento de informações técnicas:
 - Latência mínima entre Bronze e Silver;
 - Evolução da latência ao longo do processamento.
 
----
+______
 
 ## 🧪 Testes Automatizados
 
@@ -286,7 +286,7 @@ tests/
 └── test_data_quality.py
 ```
 
-### Contrato do Evento Kafka
+Contrato do Evento Kafka
 
 Validação do evento recebido utilizando **JSON Schema**, garantindo que o payload publicado no tópico Kafka esteja em conformidade com o contrato esperado.
 
