@@ -1,3 +1,5 @@
+![Arquitetura do StreamLake Platform](docs/architecture.png)
+
 # StreamLake Platform
 
  Plataforma de Dados Streaming utilizando **Apache Kafka**,
