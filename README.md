@@ -1,4 +1,4 @@
-![Arquitetura do StreamLake Platform](docs/architecture.png)
+![Arquitetura do StreamLake Platform](docs/1.architecture.PNG)
 
 # StreamLake Platform
 
