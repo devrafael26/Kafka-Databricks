@@ -312,6 +312,14 @@ Databricks Bundle Deploy
 ├── resources
 │   ├── kafka_pipeline.pipeline.yml
 │   └── kafka_stream_job.job.yml
+├── docs
+│   ├── 1.imagem.PNG
+│   ├── 2.confluent-kafka.PNG
+│   ├── 3.pipeline.PNG
+│   ├── 4. job.PNG
+│   ├── 5.tasks.PNG
+│   ├── 6.analytics.PNG
+│   └── 7.observalidade.PNG
 ├── src
 │   ├── notebooks
 │   │   └── ingest_kafka.py
@@ -328,7 +336,6 @@ Databricks Bundle Deploy
 │   │   ├── order_event_schema.json
 │   │   ├── bronze_orders_schema.json
 │   │   └── silver_orders_schema.json
-│   │
 │   ├── test_order_event_contract.py
 │   ├── test_bronze_schema.py
 │   ├── test_silver_schema.py
